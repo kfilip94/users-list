@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useLayoutEffect } from "react";
+import Checkbox from "../Checkbox/Checkbox";
 import styled from "styled-components";
 
 import PermissionLabel from "../PermissionLabel/PermissionLabel";
@@ -17,10 +18,10 @@ const ListItemWrapper = styled.li.attrs((props) => ({
 
 const ListItem = styled.div`
   box-sizing: border-box;
-  border-left: 4px solid #475de5;
+  border-left: 4px solid white;
   border-radius: 4px;
-  background-color: #f7fafc;
-
+  background-color: ${(props) => (props.checked ? "#f7fafc" : "white")};
+  border-color: ${(props) => (props.checked ? "#475de5" : "white")};
   display: flex;
   width: 100%;
   padding: 16px 24px 16px 12px;
@@ -55,13 +56,13 @@ const Email = styled.div`
   line-height: 21px;
 `;
 
-const CheckboxPlaceholder = styled.div`
-  height: 16px;
-  width: 16px;
-  background-color: #475de5;
-  border-radius: 4px;
-  margin-right: 14px;
-`;
+// const CheckboxPlaceholder = styled.div`
+//   height: 16px;
+//   width: 16px;
+//   background-color: #475de5;
+//   border-radius: 4px;
+//   margin-right: 14px;
+// `;
 
 const UserSection = styled.div`
   display: flex;
@@ -78,6 +79,8 @@ const EditSection = styled.div`
 const ListItemComponent = ({ item, size, start, parentRef }) => {
   const [imageSrc, setImageSrc] = useState("#");
   const [imageRef, setImageRef] = useState();
+
+  const [checked, setChecked] = useState(false);
 
   const onLoad = (event) => {
     event.target.classList.add("loaded");
@@ -128,9 +131,9 @@ const ListItemComponent = ({ item, size, start, parentRef }) => {
 
   return (
     <ListItemWrapper size={size} start={start}>
-      <ListItem>
+      <ListItem checked={checked}>
         <UserSection>
-          <CheckboxPlaceholder />
+          <Checkbox checked={checked} onChange={() => setChecked(!checked)} />
           <AvatarImg ref={setImageRef} src={imageSrc} />
           <Info>
             <Name>{item.name}</Name>
