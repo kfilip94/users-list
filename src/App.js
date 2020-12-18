@@ -15,8 +15,12 @@ export default function App() {
   const rowVirtualizer = useVirtual({
     size: users.length,
     parentRef: listRef,
-    estimateSize: React.useCallback(() => 64, []),
+    estimateSize: React.useCallback(() => 68, []),
     overscan: 10
+    // useObserver: (parentRef) => {
+    //   console.log("parentRef:", parentRef);
+    //   return { height: 300 };
+    // }
   });
 
   return (

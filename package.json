@@ -8,6 +8,7 @@
   ],
   "main": "src/index.js",
   "dependencies": {
+    "lodash": "4.17.20",
     "react": "17.0.0",
     "react-app-rewire-alias": "0.1.9",
     "react-app-rewire-aliases": "0.2.0",
