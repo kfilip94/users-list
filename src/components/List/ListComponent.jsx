@@ -10,7 +10,13 @@ const CheckboxPlaceholder = styled.ul`
   margin: auto;
 `;
 
-const ListComponent = ({ items, rowVirtualizer, parentRef }) => {
+const ListComponent = ({
+  items,
+  rowVirtualizer,
+  parentRef,
+  selectedUsers,
+  setSelectedUsers
+}) => {
   // console.log("rowVirtualizer: ", rowVirtualizer);
   return (
     <CheckboxPlaceholder ref={parentRef}>

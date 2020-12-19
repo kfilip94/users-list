@@ -3,6 +3,7 @@ import "./styles.css";
 import List from "./components/List/List";
 import { useVirtual } from "react-virtual";
 import { fetchUsers } from "./api/fakeApi";
+import UserContextProvider from "./contexts/UserContext";
 
 export default function App() {
   const listRef = React.useRef();
@@ -27,7 +28,13 @@ export default function App() {
     <div className="App">
       <h1>Hello CodeSandbox</h1>
       <h2>Start editing to see some magic happen!</h2>
-      <List items={users} rowVirtualizer={rowVirtualizer} parentRef={listRef} />
+      <UserContextProvider>
+        <List
+          items={users}
+          rowVirtualizer={rowVirtualizer}
+          parentRef={listRef}
+        />
+      </UserContextProvider>
     </div>
   );
 }

@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, { useState, useEffect, useMemo, useContext } from "react";
 import Checkbox from "../Checkbox/Checkbox";
 import styled from "styled-components";
-
+import { UserContext } from "../../contexts/UserContext";
 import PermissionLabel from "../PermissionLabel/PermissionLabel";
 
 const ListItemWrapper = styled.li.attrs((props) => ({
@@ -80,7 +80,7 @@ const ListItemComponent = ({ item, size, start, parentRef }) => {
   const [imageSrc, setImageSrc] = useState("#");
   const [imageRef, setImageRef] = useState();
 
-  const [checked, setChecked] = useState(false);
+  const { selectUser, deselectUser, selectedUsers } = useContext(UserContext);
 
   const onLoad = (event) => {
     event.target.classList.add("loaded");
@@ -131,9 +131,18 @@ const ListItemComponent = ({ item, size, start, parentRef }) => {
 
   return (
     <ListItemWrapper size={size} start={start}>
-      <ListItem checked={checked}>
+      <ListItem checked={!!selectedUsers[item.id]}>
         <UserSection>
-          <Checkbox checked={checked} onChange={() => setChecked(!checked)} />
+          <Checkbox
+            checked={!!selectedUsers[item.id]}
+            onChange={() => {
+              if (!!selectedUsers[item.id]) {
+                deselectUser(item.id);
+              } else {
+                selectUser(item.id);
+              }
+            }}
+          />
           <AvatarImg ref={setImageRef} src={imageSrc} />
           <Info>
             <Name>{item.name}</Name>
