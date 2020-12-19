@@ -3,6 +3,9 @@ import Checkbox from "../Checkbox/Checkbox";
 import styled from "styled-components";
 import { UserContext } from "../../contexts/UserContext";
 import PermissionLabel from "../PermissionLabel/PermissionLabel";
+import Button from "../Button/Button";
+import { ReactComponent as EditIcon } from "../../assets/icons/pencil.svg";
+import { ReactComponent as DeleteIcon } from "../../assets/icons/trash.svg";
 
 const ListItemWrapper = styled.li.attrs((props) => ({
   style: {
@@ -14,6 +17,17 @@ const ListItemWrapper = styled.li.attrs((props) => ({
   position: absolute;
   top: 0;
   width: 100%;
+`;
+
+const ButtonsContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  flex: 2;
+  visibility: hidden;
+
+  > * {
+    margin-left: 4px;
+  }
 `;
 
 const ListItem = styled.div`
@@ -28,6 +42,11 @@ const ListItem = styled.div`
   margin-bottom: 4px;
   align-items: center;
   height: 64px;
+  cursor: pointer;
+
+  &:hover ${ButtonsContainer} {
+    visibility: visible;
+  }
 `;
 
 const Info = styled.div`
@@ -131,12 +150,22 @@ const ListItemComponent = ({ item, size, start, parentRef }) => {
 
   return (
     <ListItemWrapper size={size} start={start}>
-      <ListItem checked={!!selectedUsers[item.id]}>
+      <ListItem
+        checked={
+          selectedUsers[item.id] !== undefined
+            ? selectedUsers[item.id]
+            : selectedUsers.ALL_SELECTED
+        }
+      >
         <UserSection>
           <Checkbox
-            checked={!!selectedUsers[item.id]}
+            checked={
+              selectedUsers[item.id] !== undefined
+                ? selectedUsers[item.id]
+                : selectedUsers.ALL_SELECTED
+            }
             onChange={() => {
-              if (!!selectedUsers[item.id]) {
+              if (!!selectedUsers[item.id] || selectedUsers.ALL_SELECTED) {
                 deselectUser(item.id);
               } else {
                 selectUser(item.id);
@@ -151,6 +180,15 @@ const ListItemComponent = ({ item, size, start, parentRef }) => {
         </UserSection>
         <EditSection>
           {item.role && <PermissionLabel role={item.role} />}
+          <ButtonsContainer>
+            <Button>
+              <EditIcon />
+              Edit
+            </Button>
+            <Button>
+              <DeleteIcon />
+            </Button>
+          </ButtonsContainer>
         </EditSection>
       </ListItem>
     </ListItemWrapper>

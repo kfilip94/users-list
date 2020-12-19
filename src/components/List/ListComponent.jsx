@@ -2,12 +2,21 @@ import React from "react";
 import ListItem from "../ListItem/ListItem";
 import styled from "styled-components";
 
-const CheckboxPlaceholder = styled.ul`
-  max-width: 716px;
+const List = styled.ul`
+  width: 100%;
   position: relative;
   height: 650px;
   overflow-y: scroll;
   margin: auto;
+
+  box-sizing: border-box;
+  padding: 0;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const ListComponent = ({
@@ -19,7 +28,7 @@ const ListComponent = ({
 }) => {
   // console.log("rowVirtualizer: ", rowVirtualizer);
   return (
-    <CheckboxPlaceholder ref={parentRef}>
+    <List ref={parentRef}>
       <li style={{ height: rowVirtualizer.totalSize }} />
       {rowVirtualizer.virtualItems.map(({ index, size, start }) => {
         const item = items[index];
@@ -33,7 +42,7 @@ const ListComponent = ({
           />
         );
       })}
-    </CheckboxPlaceholder>
+    </List>
   );
 };
 
