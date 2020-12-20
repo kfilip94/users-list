@@ -13,30 +13,13 @@ const UsersContextProvider = ({ children }) => {
     page: 0
   });
 
-  const fetchFunctionCallbak = useCallback((q) => fakeFetchUsers(q), [
-    fakeFetchUsers
-  ]);
-
-  // React.useEffect(() => {
-  //   console.log("FETCHING: ");
-  //   const fetchFn = async () => {
-  //     const newData = await fetchFunctionCallbak(queryParams);
-  //     setData((data) => [...data, ...newData]);
-  //   };
-  //   fetchFn();
-  //   // fetchFunction(queryParams).then((newData) => {
-  //   //   updateData(newData);
-  //   //   console.log({ data });
-  //   // });
-  // }, [queryParams, fetchFunctionCallbak]);
-
   const loadMore = () => {
     // console.log("LOAD MORE:", { hasMorePages });
     if (hasMorePages === true) {
       setQueryParams({ ...queryParams, page: queryParams.page + 1 });
 
       const fetchFn = async () => {
-        const newData = await fetchFunctionCallbak(queryParams);
+        const newData = await fakeFetchUsers(queryParams);
         setData((data) => [...data, ...newData.users]);
         setHasMorePages(newData.hasMorePages);
       };
@@ -46,13 +29,13 @@ const UsersContextProvider = ({ children }) => {
 
   const updateQueryParams = (newQueryParams) => {
     setData([]);
-    console.log("UPDATE QP newQueryParams", newQueryParams, { queryParams });
+    // console.log("UPDATE QP newQueryParams", newQueryParams, { queryParams });
 
     setQueryParams({ ...queryParams, ...newQueryParams, page: 0 });
-    console.log("UPDATE QP", queryParams);
+    // console.log("UPDATE QP", queryParams);
 
     const fetchFn = async () => {
-      const newData = await fetchFunctionCallbak({
+      const newData = await fakeFetchUsers({
         ...queryParams,
         ...newQueryParams,
         page: 0
