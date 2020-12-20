@@ -1,7 +1,10 @@
-import { useState, useMemo, useCallback } from "react";
+import React, { useState, useMemo, useCallback, createContext } from "react";
 import { SORT_TYPE } from "../utils";
+import { fakeFetchUsers } from "../api/fakeApi";
 
-const useInfiniteFetchData = ({ fetchFunction }) => {
+export const UsersContext = createContext();
+
+const UsersContextProvider = ({ children }) => {
   const [data, setData] = useState([]);
   const [hasMorePages, setHasMorePages] = useState(true);
   const [queryParams, setQueryParams] = useState({
@@ -10,8 +13,8 @@ const useInfiniteFetchData = ({ fetchFunction }) => {
     page: 0
   });
 
-  const fetchFunctionCallbak = useCallback((q) => fetchFunction(q), [
-    fetchFunction
+  const fetchFunctionCallbak = useCallback((q) => fakeFetchUsers(q), [
+    fakeFetchUsers
   ]);
 
   // React.useEffect(() => {
@@ -43,18 +46,44 @@ const useInfiniteFetchData = ({ fetchFunction }) => {
 
   const updateQueryParams = (newQueryParams) => {
     setData([]);
+    console.log("UPDATE QP newQueryParams", newQueryParams, { queryParams });
+
     setQueryParams({ ...queryParams, ...newQueryParams, page: 0 });
-    // console.log("UPDATE QP", queryParams);
+    console.log("UPDATE QP", queryParams);
 
     const fetchFn = async () => {
-      const newData = await fetchFunctionCallbak(queryParams);
+      const newData = await fetchFunctionCallbak({
+        ...queryParams,
+        ...newQueryParams,
+        page: 0
+      });
       setData(newData.users);
       setHasMorePages(newData.hasMorePages);
     };
     fetchFn();
   };
 
-  return { data, loadMore, updateQueryParams, hasMorePages, queryParams };
+  const value = {
+    data,
+    loadMore,
+    updateQueryParams,
+    hasMorePages,
+    queryParams
+  };
+
+  return (
+    <UsersContext.Provider
+      value={{
+        data,
+        loadMore,
+        updateQueryParams,
+        hasMorePages,
+        queryParams
+      }}
+    >
+      {children}
+    </UsersContext.Provider>
+  );
 };
 
-export default useInfiniteFetchData;
+export default UsersContextProvider;

@@ -23,10 +23,9 @@ const ListComponent = ({
   items,
   rowVirtualizer,
   parentRef,
-  selectedUsers,
-  setSelectedUsers
+  setLoadingRef,
+  hasMorePages
 }) => {
-  // console.log("rowVirtualizer: ", rowVirtualizer);
   return (
     <List ref={parentRef}>
       <li style={{ height: rowVirtualizer.totalSize }} />
@@ -42,6 +41,7 @@ const ListComponent = ({
           />
         );
       })}
+      {hasMorePages && <div ref={setLoadingRef}>loading...</div>}
     </List>
   );
 };

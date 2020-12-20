@@ -1,4 +1,5 @@
 import data from "./users.json";
+import { SORT_TYPE } from "../utils";
 
 const URL =
   "https://raw.githubusercontent.com/klausapp/frontend-engineer-test-task/master/users.json";
@@ -30,6 +31,8 @@ const URL =
 const getUsersByPage = (users, page) => {
   const startIndex = 100 * page;
   const endIndex = 100 * (page + 1) - 1;
+
+  console.log({ startIndex, endIndex });
   if (users.length >= startIndex) {
     if (users.length >= endIndex) {
       return users.slice(startIndex, endIndex);
@@ -52,7 +55,7 @@ const filterUsersBySearch = (users, search) => {
 };
 
 const sortUsersByRole = (users, sortByPermission) => {
-  if (sortByPermission === "desc") {
+  if (sortByPermission === SORT_TYPE.DESC) {
     return users.sort((a, b) => {
       if (a.role < b.role) return 1;
       else if (a.role === b.role) return 0;
@@ -80,14 +83,21 @@ const sortUsersByRole = (users, sortByPermission) => {
 export const fakeFetchUsers = ({
   page = 0,
   search = "",
-  sortByPermission = "ASC"
+  sortByPermission = SORT_TYPE.ASC
 }) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       const filteredUsers = filterUsersBySearch(data.users, search);
       const sortedUsers = sortUsersByRole(filteredUsers, sortByPermission);
       const _users = getUsersByPage(sortedUsers, page);
-      resolve(_users);
+      const hasMorePages = Math.ceil(sortedUsers.length / 100) - 1 > page;
+      console.log(
+        "pagesCount: ",
+        hasMorePages,
+        " total pages:",
+        Math.ceil(sortedUsers.length / 100)
+      );
+      resolve({ users: _users, hasMorePages });
     }, 300);
   });
 };

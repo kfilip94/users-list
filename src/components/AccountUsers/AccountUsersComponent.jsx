@@ -1,9 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import List from "../List/List";
-import { useVirtual } from "react-virtual";
-import { fakeFetchUsers } from "../../api/fakeApi";
 import styled from "styled-components";
-import TextField from "../TextField/TextField";
+import SearchField from "../SearchField/SearchField";
 import CheckboxComponent from "../Checkbox/CheckboxComponent";
 import { ReactComponent as EditIcon } from "../../assets/icons/pencil.svg";
 import { ReactComponent as DeleteIcon } from "../../assets/icons/trash.svg";
@@ -11,13 +9,16 @@ import { ReactComponent as ArrowIcon } from "../../assets/icons/arrow-down.svg";
 
 import Button from "../Button/Button";
 import { UserContext } from "../../contexts/UserContext";
+import { UsersContext } from "../../contexts/UsersContext";
+
+import { SORT_TYPE } from "../../utils";
 
 const AccountUsers = styled.div`
   background-color: #edf2f7;
   display: flex;
   flex-direction: column;
   padding: 32px;
-  width: 790px;
+  max-width: 790px;
   margin: auto;
 `;
 
@@ -101,39 +102,19 @@ const ButtonText = styled.div`
   margin-left: 8px;
 `;
 
-const SORT_TYPE = { DESC: "desc", ASC: "asc" };
-
 const AccountUsersComponent = () => {
   const listRef = React.useRef();
-  const [users, setUsers] = useState([]);
-  const [search, setSearch] = useState("");
-  const [sortByPermission, setSortByPermission] = useState(SORT_TYPE.ASC);
-  const {
-    selectedUsers,
-    selectedUsersCount,
-    selectUser,
-    deselectUser
-  } = useContext(UserContext);
 
-  React.useEffect(() => {
-    console.log("REQUEST");
-    fakeFetchUsers({ search, sortByPermission }).then((_users) =>
-      setUsers(_users)
-    );
-  }, [search, sortByPermission]);
-
-  const rowVirtualizer = useVirtual({
-    size: users.length,
-    parentRef: listRef,
-    estimateSize: React.useCallback(() => 68, []),
-    overscan: 10
-  });
+  const { updateQueryParams, queryParams } = useContext(UsersContext);
+  const { selectedUsers, selectedUsersCount, toggleSelection } = useContext(
+    UserContext
+  );
 
   const handleSortToggle = () => {
-    if (sortByPermission === SORT_TYPE.ASC) {
-      setSortByPermission(SORT_TYPE.DESC);
+    if (queryParams.sortByPermission === SORT_TYPE.ASC) {
+      updateQueryParams({ sortByPermission: SORT_TYPE.DESC });
     } else {
-      setSortByPermission(SORT_TYPE.ASC);
+      updateQueryParams({ sortByPermission: SORT_TYPE.ASC });
     }
   };
 
@@ -141,11 +122,10 @@ const AccountUsersComponent = () => {
     <AccountUsers>
       <Header>
         <Title>Account users</Title>
-        <TextField
+        <SearchField
           placeholder="Search"
-          value={search}
-          onChange={(event) => setSearch(event.target.value)}
-        ></TextField>
+          onChange={(value) => updateQueryParams({ search: value })}
+        ></SearchField>
         <ConnectUsersButton>Connect Users</ConnectUsersButton>
       </Header>
       <ListContainer>
@@ -164,27 +144,23 @@ const AccountUsersComponent = () => {
           <User>
             <CheckboxComponent
               checked={selectedUsers.ALL_SELECTED}
-              onChange={() => {
-                if (selectedUsers.ALL_SELECTED) {
-                  deselectUser("ALL_SELECTED");
-                } else {
-                  selectUser("ALL_SELECTED");
-                }
-              }}
+              onChange={() => toggleSelection("ALL_SELECTED")}
             />
             <span>User</span>
           </User>
           <div>
             <SortOrderButton onClick={handleSortToggle}>
               <span>Permission</span>
-              <SortOrderIcon sortOrder={sortByPermission} />
+              <SortOrderIcon sortOrder={queryParams.sortByPermission} />
             </SortOrderButton>
           </div>
         </ListHeader>
         <List
-          items={users}
-          rowVirtualizer={rowVirtualizer}
+          // items={users}
+          // rowVirtualizer={rowVirtualizer}
           parentRef={listRef}
+          // setLoadingRef={setLoadingRef}
+          // hasMorePages={hasMorePages}
         />
       </ListContainer>
     </AccountUsers>
