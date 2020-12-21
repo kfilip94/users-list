@@ -1,5 +1,6 @@
 import React from "react";
 import ListItem from "../ListItem/ListItem";
+import Loading from "../Loading/Loading";
 import styled from "styled-components";
 
 const List = styled.ul`
@@ -27,9 +28,6 @@ const ListComponent = ({
   hasNextPage
 }) => {
   return (
-    // {data.pages.map(page => (
-    //   <React.Fragment key={page.nextId}>
-    //     {page.data.map(project => (
     <List ref={parentRef}>
       <li style={{ height: rowVirtualizer.totalSize }} />
       {rowVirtualizer.virtualItems.map(({ index, size, start }) => {
@@ -44,24 +42,8 @@ const ListComponent = ({
           />
         );
       })}
-      {hasNextPage && <div ref={setLoadingRef}>loading...</div>}
+      {hasNextPage && <Loading loadingRef={setLoadingRef}></Loading>}
     </List>
-    // <List ref={parentRef}>
-    //   <li style={{ height: rowVirtualizer.totalSize }} />
-    //   {rowVirtualizer.virtualItems.map(({ index, size, start }) => {
-    //     const item = items[index];
-    //     return (
-    //       <ListItem
-    //         key={item.id}
-    //         item={item}
-    //         size={size}
-    //         start={start}
-    //         parentRef={parentRef}
-    //       />
-    //     );
-    //   })}
-    //   {hasMorePages && <div ref={setLoadingRef}>loading...</div>}
-    // </List>
   );
 };
 

@@ -45,7 +45,10 @@ const AccountUsersComponent = () => {
     hasNextPage
   } = useUsers({ search, sortByPermission: sortOrder });
 
-  const items = data ? data.pages.map((page) => page.users).flat(1) : [];
+  const items = useMemo(
+    () => (data ? data.pages.map((page) => page.users).flat(1) : []),
+    [data]
+  );
 
   const listRef = React.useRef();
   const { selectedUsers, selectedUsersCount, toggleSelection } = useContext(

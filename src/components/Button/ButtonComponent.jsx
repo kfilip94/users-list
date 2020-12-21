@@ -10,10 +10,10 @@ const Button = styled.button`
   display: flex;
   align-items: center;
   color: #4a5568;
-  /* font-family: SF Pro Text; */
+  font-family: ${({ theme }) => theme.fontFamilyBold};
   font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
+  /* font-style: normal; */
+  /* font-weight: 500; */
   /* line-height: 21px; */
   letter-spacing: 0em;
   text-align: left;

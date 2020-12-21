@@ -2,7 +2,6 @@ import { useInfiniteQuery } from "react-query";
 import { fakeFetchUsers } from "../api/fakeApi";
 
 const useUsers = (queryParams) => {
-  console.log("useUsers");
   return useInfiniteQuery(
     ["users", queryParams],
     async (params) => {

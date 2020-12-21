@@ -17,9 +17,16 @@ const PermissionLabel = styled.div.attrs(({ backgroundColor, color }) => ({
   color: #2c5282;
 `;
 
+const parseRoleText = (text) => {
+  return text
+    .split("_")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(" ");
+};
+
 const PermissionLabelComponent = ({ role }) => {
-  const { text, style } = ROLES[role] || ROLES.DEFAULT;
-  return <PermissionLabel {...style}>{text}</PermissionLabel>;
+  const { style } = ROLES[role] || ROLES.DEFAULT;
+  return <PermissionLabel {...style}>{parseRoleText(role)}</PermissionLabel>;
 };
 
 export default PermissionLabelComponent;

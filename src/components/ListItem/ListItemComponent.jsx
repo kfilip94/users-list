@@ -77,7 +77,7 @@ const ListItemComponent = ({ item, size, start, parentRef }) => {
     return selectedUsers[item.id] !== undefined
       ? selectedUsers[item.id]
       : selectedUsers.ALL_SELECTED;
-  }, [selectedUsers[item.id], selectedUsers.ALL_SELECTED]);
+  }, [item.id, selectedUsers]);
 
   return (
     <ListItemWrapper size={size} start={start}>
