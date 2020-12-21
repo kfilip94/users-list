@@ -26,9 +26,7 @@ export default function App() {
   return (
     <div className="App">
       <GlobalStyle />
-      <UserContextProvider>
-        <AccountUsersComponent />
-      </UserContextProvider>
+      <AccountUsersComponent />
     </div>
   );
 }

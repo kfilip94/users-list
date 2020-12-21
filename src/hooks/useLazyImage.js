@@ -2,32 +2,31 @@ import { useState, useEffect } from "react";
 
 export const useLazyImage = ({ imageURL, imageRef, parentRef }) => {
   const [imageSrc, setImageSrc] = useState("#");
-  // const [imageRef, setImageRef] = useState();
 
   useEffect(() => {
     let observer;
     let didCancel = false;
 
+    const callback = (entries) => {
+      entries.forEach((entry) => {
+        if (
+          !didCancel &&
+          (entry.intersectionRatio > 0 || entry.isIntersecting)
+        ) {
+          setImageSrc(imageURL);
+          observer.unobserve(imageRef);
+        }
+      });
+    };
+    const options = {
+      root: parentRef.current,
+      threshold: 0.01,
+      rootMargin: "50%"
+    };
+
     if (imageRef && imageSrc !== imageURL) {
       if (IntersectionObserver) {
-        observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (
-                !didCancel &&
-                (entry.intersectionRatio > 0 || entry.isIntersecting)
-              ) {
-                setImageSrc(imageURL);
-                observer.unobserve(imageRef);
-              }
-            });
-          },
-          {
-            root: parentRef.current,
-            threshold: 0.01,
-            rootMargin: "50%"
-          }
-        );
+        observer = new IntersectionObserver(callback, options);
         observer.observe(imageRef);
       } else {
         // Old browsers fallback
