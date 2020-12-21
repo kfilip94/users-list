@@ -25,7 +25,8 @@ const Checkbox = styled.div`
   justify-content: center;
   width: 16px;
   height: 16px;
-  background-color: ${(props) => (props.checked ? "#475de5" : "white")};
+  background-color: ${({ checked, theme }) =>
+    checked ? theme.themeColor : "white"};
   /* border-radius: 4px; */
   margin-right: 14px;
   transition: all 150ms;

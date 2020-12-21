@@ -14,17 +14,18 @@ const Title = styled.span`
   line-height: 27px;
   flex: 3;
   text-align: left;
+  font-family: ${({ theme }) => theme.fontFamilyBold};
 `;
 
 const ConnectUsersButton = styled.button`
   /* flex: 1; */
   padding: 10px 12px;
-  background-color: #475de5;
+  background-color: ${({ theme }) => theme.themeColor};
   border: 0;
   border-radius: 4px;
   color: white;
-  font-weight: 500;
-  font-size: 14px;
+  font-family: ${({ theme }) => theme.fontFamilyBold};
+  font-size: ${({ theme }) => theme.fontSize};
   line-height: 21px;
 `;
 

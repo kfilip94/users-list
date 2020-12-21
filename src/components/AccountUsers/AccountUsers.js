@@ -1,12 +1,19 @@
 import React from "react";
 import AccountUsersComponent from "./AccountUsersComponent";
-import UsersContextProvider from "../../contexts/UsersContext";
+import { QueryClient, QueryClientProvider } from "react-query";
+// import { ReactQueryDevtools } from "react-query/devtools";
+import UserContextProvider from "../../contexts/UserContext";
+
+const queryClient = new QueryClient();
 
 const AccountUsers = (props) => {
   return (
-    <UsersContextProvider>
-      <AccountUsersComponent {...props} />
-    </UsersContextProvider>
+    <QueryClientProvider client={queryClient}>
+      <UserContextProvider>
+        <AccountUsersComponent {...props} />
+        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+      </UserContextProvider>
+    </QueryClientProvider>
   );
 };
 

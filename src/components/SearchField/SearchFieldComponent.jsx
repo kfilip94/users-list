@@ -10,6 +10,7 @@ const SearchField = styled.label`
   box-sizing: border-box;
   border-radius: 4px;
   padding: 12px 12px 10px 12px;
+  display: flex;
 
   > *:first-child {
     margin-right: 10px;

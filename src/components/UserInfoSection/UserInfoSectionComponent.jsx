@@ -14,14 +14,15 @@ const AvatarImg = styled.img`
 
 const Name = styled.div`
   color: #1a202c;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSize};
   font-weight: 500;
   line-height: 21px;
+  font-family: ${({ theme }) => theme.fontFamilyBold};
 `;
 
 const Email = styled.div`
   color: #718096;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSize};
   line-height: 21px;
 `;
 

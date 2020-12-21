@@ -7,6 +7,7 @@ import Button from "../Button/Button";
 import { ReactComponent as EditIcon } from "../../assets/icons/pencil.svg";
 import { ReactComponent as DeleteIcon } from "../../assets/icons/trash.svg";
 import UserInfoSection from "../UserInfoSection/UserInfoSection";
+import { device } from "../../styles/breakpoints";
 
 const ListItemWrapper = styled.li.attrs((props) => ({
   style: {
@@ -36,7 +37,8 @@ const ListItem = styled.div`
   border-left: 4px solid white;
   border-radius: 4px;
   background-color: ${(props) => (props.checked ? "#f7fafc" : "white")};
-  border-color: ${(props) => (props.checked ? "#475de5" : "white")};
+  border-color: ${({ checked, theme }) =>
+    checked ? theme.themeColor : "white"};
   display: flex;
   width: 100%;
   padding: 16px 24px 16px 12px;
@@ -44,7 +46,6 @@ const ListItem = styled.div`
   align-items: center;
   height: 64px;
   cursor: pointer;
-
   &:hover ${ButtonsContainer} {
     visibility: visible;
   }
@@ -60,6 +61,13 @@ const EditSection = styled.div`
   display: flex;
   align-items: center;
   flex: 2;
+`;
+
+const EditText = styled.span`
+  display: none;
+  @media ${device.laptop} {
+    display: block;
+  }
 `;
 
 const ListItemComponent = ({ item, size, start, parentRef }) => {
@@ -88,7 +96,7 @@ const ListItemComponent = ({ item, size, start, parentRef }) => {
           <ButtonsContainer>
             <Button>
               <EditIcon />
-              Edit
+              <EditText>Edit</EditText>
             </Button>
             <Button>
               <DeleteIcon />

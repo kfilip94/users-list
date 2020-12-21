@@ -24,9 +24,12 @@ const ListComponent = ({
   rowVirtualizer,
   parentRef,
   setLoadingRef,
-  hasMorePages
+  hasNextPage
 }) => {
   return (
+    // {data.pages.map(page => (
+    //   <React.Fragment key={page.nextId}>
+    //     {page.data.map(project => (
     <List ref={parentRef}>
       <li style={{ height: rowVirtualizer.totalSize }} />
       {rowVirtualizer.virtualItems.map(({ index, size, start }) => {
@@ -41,8 +44,24 @@ const ListComponent = ({
           />
         );
       })}
-      {hasMorePages && <div ref={setLoadingRef}>loading...</div>}
+      {hasNextPage && <div ref={setLoadingRef}>loading...</div>}
     </List>
+    // <List ref={parentRef}>
+    //   <li style={{ height: rowVirtualizer.totalSize }} />
+    //   {rowVirtualizer.virtualItems.map(({ index, size, start }) => {
+    //     const item = items[index];
+    //     return (
+    //       <ListItem
+    //         key={item.id}
+    //         item={item}
+    //         size={size}
+    //         start={start}
+    //         parentRef={parentRef}
+    //       />
+    //     );
+    //   })}
+    //   {hasMorePages && <div ref={setLoadingRef}>loading...</div>}
+    // </List>
   );
 };
 

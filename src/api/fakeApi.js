@@ -32,7 +32,7 @@ const getUsersByPage = (users, page) => {
   const startIndex = 100 * page;
   const endIndex = 100 * (page + 1) - 1;
 
-  console.log({ startIndex, endIndex });
+  console.log("FAKE_API: ", { startIndex, endIndex });
   if (users.length >= startIndex) {
     if (users.length >= endIndex) {
       return users.slice(startIndex, endIndex);
@@ -86,18 +86,22 @@ export const fakeFetchUsers = ({
   sortByPermission = SORT_TYPE.ASC
 }) => {
   return new Promise((resolve, reject) => {
+    // console.log("FAKEAPI: ", page);
     setTimeout(() => {
       const filteredUsers = filterUsersBySearch(data.users, search);
       const sortedUsers = sortUsersByRole(filteredUsers, sortByPermission);
       const _users = getUsersByPage(sortedUsers, page);
-      const hasMorePages = Math.ceil(sortedUsers.length / 100) - 1 > page;
-      console.log(
-        "pagesCount: ",
-        hasMorePages,
-        " total pages:",
-        Math.ceil(sortedUsers.length / 100)
-      );
-      resolve({ users: _users, hasMorePages });
+      const nextPage =
+        Math.ceil(sortedUsers.length / 100) - 1 > page ? page + 1 : null;
+      console.log("FAKE_API: ", {
+        query: {
+          page,
+          search,
+          sortByPermission
+        },
+        response: { users: _users, nextPage }
+      });
+      resolve({ users: _users, nextPage });
     }, 300);
   });
 };

@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 
 const Button = styled.button`
@@ -20,8 +19,4 @@ const Button = styled.button`
   text-align: left;
 `;
 
-const ButtonComponent = ({ onClick, children }) => {
-  return <Button onClick={onClick}>{children}</Button>;
-};
-
-export default ButtonComponent;
+export default Button;

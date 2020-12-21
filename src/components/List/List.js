@@ -1,37 +1,26 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import ListComponent from "./ListComponent";
-import { UsersContext } from "../../contexts/UsersContext";
 import { useVirtual } from "react-virtual";
 
-const List = (props) => {
-  const {
-    data,
-    loadMore,
-    hasMorePages,
-    updateQueryParams,
-    queryParams
-  } = useContext(UsersContext);
+const List = ({ items, fetchMore, hasNextPage }) => {
   const listRef = React.useRef();
 
-  // useEffect(() => {
-  //   loadMore();
-  // }, []);
-
   const rowVirtualizer = useVirtual({
-    size: data.length,
+    size: items.length,
     parentRef: listRef,
     estimateSize: React.useCallback(() => 68, []),
     overscan: 10
   });
 
   const [loadingRef, setLoadingRef] = useState();
-  const loader = React.useRef(loadMore);
+  const loader = React.useRef(fetchMore);
 
   const observer = React.useRef(
     new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
         if (entry.isIntersecting) {
+          // fetchNextPage();
           loader.current();
         }
       },
@@ -58,17 +47,17 @@ const List = (props) => {
   }, [loadingRef]);
 
   useEffect(() => {
-    loader.current = loadMore;
-  }, [loadMore]);
+    loader.current = fetchMore;
+  }, [fetchMore]);
 
   return (
     <ListComponent
       // {...props}
-      hasMorePages={hasMorePages}
       setLoadingRef={setLoadingRef}
       rowVirtualizer={rowVirtualizer}
-      items={data}
+      items={items}
       parentRef={listRef}
+      hasNextPage={hasNextPage}
     />
   );
 };

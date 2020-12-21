@@ -13,12 +13,13 @@ const User = styled.div`
 
 const SortOrderButton = styled(Button)`
   border: 0;
+  box-shadow: none;
 `;
 
 const SortOrderIcon = styled(ArrowIcon)`
   margin-left: 4px;
   transform: ${(props) =>
-    props.sortOrder === SORT_TYPE.ASC ? "none" : `rotate(180deg)`};
+    props.sortOrder === SORT_TYPE.DESC ? "none" : `rotate(180deg)`};
 `;
 
 const ListHeader = styled.div`
