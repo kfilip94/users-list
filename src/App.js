@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import "./styles.css";
 import UserContextProvider from "./contexts/UserContext";
 import AccountUsersComponent from "./components/AccountUsers/AccountUsers";
 import { createGlobalStyle } from "styled-components";
+import GlobalFonts from "./fonts/GlobalFonts";
+import { ThemeProvider } from "styled-components";
+import { defaultTheme } from "./styles/themes.js";
 
 const GlobalStyle = createGlobalStyle`
   button, input {
@@ -18,15 +20,19 @@ const GlobalStyle = createGlobalStyle`
   }
 
   * {
-    font-family: sans-serif;
+    font-family: 'SF Pro Text Regular';
   }
 `;
 
 export default function App() {
   return (
     <div className="App">
+      <GlobalFonts />
       <GlobalStyle />
-      <AccountUsersComponent />
+
+      <ThemeProvider theme={defaultTheme}>
+        <AccountUsersComponent />
+      </ThemeProvider>
     </div>
   );
 }
