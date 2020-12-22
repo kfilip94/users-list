@@ -6,6 +6,10 @@ import styled, { ThemeProvider } from "styled-components";
 import { defaultTheme } from "./styles/themes.js";
 
 const GlobalStyle = createGlobalStyle`
+  body {
+    margin: 0;
+  }
+
   button, input {
     user-select: none;
     outline: none;
