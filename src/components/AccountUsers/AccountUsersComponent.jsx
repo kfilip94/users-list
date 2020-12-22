@@ -36,15 +36,10 @@ const AccountUsersComponent = () => {
   const [search, setSearch] = React.useState("");
   const [sortOrder, setSortOrder] = React.useState(SORT_TYPE.ASC);
 
-  const {
-    status,
-    data,
-    error,
-    isFetching,
-    isFetchingNextPage,
-    fetchNextPage,
-    hasNextPage
-  } = useUsers({ search, sortByPermission: sortOrder });
+  const { data, fetchNextPage, hasNextPage } = useUsers({
+    search,
+    sortByPermission: sortOrder
+  });
 
   const items = useMemo(
     () => (data ? data.pages.map((page) => page.users).flat(1) : []),
