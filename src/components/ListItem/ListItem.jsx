@@ -2,7 +2,7 @@ import React, { useMemo, useContext } from "react";
 import styled from "styled-components";
 
 import Checkbox from "../Checkbox/Checkbox";
-import { ListSelectionContext } from "../../contexts/ListSelectionContextProvider";
+import useListSelectionContext from "../../hooks/useListSelectionContext";
 import PermissionLabel from "../PermissionLabel/PermissionLabel";
 import Button from "../Button/Button";
 import { ReactComponent as EditIcon } from "../../assets/icons/pencil.svg";
@@ -78,7 +78,7 @@ const DeleteButton = styled(Button)`
 `;
 
 const ListItemComponent = ({ item, size, start, parentRef }) => {
-  const { isChecked, toggleItemSelection } = useContext(ListSelectionContext);
+  const { isChecked, toggleItemSelection } = useListSelectionContext();
   const checked = useMemo(() => isChecked([item.id]), [item.id, isChecked]);
 
   return (
