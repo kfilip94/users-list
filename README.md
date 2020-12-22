@@ -1,7 +1,11 @@
 # Virtualized User List component
 This User list component allows you to load long list of users from your API without a performance drop.
 
+![Alt Text](https://media.giphy.com/media/45mr7vbeQZ9KdbZqQd/giphy.gif)
 
+LINKS:
+- [preview on Netlify](https://main--naughty-hopper-06351f.netlify.app/)
+- [codesandbox](https://codesandbox.io/s/github/kfilip94/users-list)
 
 Technologies & features:
 - [react-virtual](https://github.com/tannerlinsley/react-virtual) - this library provides an easy way to virtualize your table and render only visible elements in DOM,
