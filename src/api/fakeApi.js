@@ -1,8 +1,8 @@
 import data from "./users.json";
 import { SORT_TYPE } from "../utils";
 
-const URL =
-  "https://raw.githubusercontent.com/klausapp/frontend-engineer-test-task/master/users.json";
+// const URL =
+//   "https://raw.githubusercontent.com/klausapp/frontend-engineer-test-task/master/users.json";
 
 // export const fetchUsers = () => {
 //   return fetch(URL).then(async (response) => {
@@ -22,17 +22,11 @@ const URL =
 //   });
 // };
 
-// const fakeFetchUsers = new Promise((resolve, reject) => {
-//   setTimeout(() => {
-//     resolve("foo");
-//   }, 300);
-// });
-
 const getUsersByPage = (users, page) => {
   const startIndex = 100 * page;
   const endIndex = 100 * (page + 1) - 1;
 
-  console.log("FAKE_API: ", { startIndex, endIndex });
+  // console.log("FAKE_API: ", { startIndex, endIndex });
   if (users.length >= startIndex) {
     if (users.length >= endIndex) {
       return users.slice(startIndex, endIndex);
@@ -70,37 +64,26 @@ const sortUsersByRole = (users, sortByPermission) => {
   }
 };
 
-// export const fakeFetchUsers = (page) => {
-//   return new Promise((resolve, reject) => {
-//     setTimeout(() => {
-//       const _users = getUsersByPage(page);
-//       console.log("_users: ", _users);
-//       resolve(_users);
-//     }, 300);
-//   });
-// };
-
 export const fakeFetchUsers = ({
   page = 0,
   search = "",
   sortByPermission = SORT_TYPE.ASC
 }) => {
   return new Promise((resolve, reject) => {
-    // console.log("FAKEAPI: ", page);
     setTimeout(() => {
       const filteredUsers = filterUsersBySearch(data.users, search);
       const sortedUsers = sortUsersByRole(filteredUsers, sortByPermission);
       const _users = getUsersByPage(sortedUsers, page);
       const nextPage =
         Math.ceil(sortedUsers.length / 100) - 1 > page ? page + 1 : null;
-      console.log("FAKE_API: ", {
-        query: {
-          page,
-          search,
-          sortByPermission
-        },
-        response: { users: _users, nextPage }
-      });
+      // console.log("FAKE_API: ", {
+      //   query: {
+      //     page,
+      //     search,
+      //     sortByPermission
+      //   },
+      //   response: { users: _users, nextPage }
+      // });
       resolve({ users: _users, nextPage });
     }, 300);
   });

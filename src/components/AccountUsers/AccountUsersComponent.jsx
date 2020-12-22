@@ -17,11 +17,12 @@ const AccountUsers = styled.div`
   flex-direction: column;
   padding: 32px 8px;
   max-width: 790px;
+  height: 720px;
   margin: auto;
 
-  @media ${device.laptop} {
+  /* @media ${device.laptop} {
     padding: 32px;
-  }
+  } */
 `;
 
 const ListContainer = styled.div`

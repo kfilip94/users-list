@@ -8,26 +8,33 @@ import { ReactComponent as DeleteIcon } from "../../assets/icons/trash.svg";
 const ListActions = styled.div`
   display: flex;
   align-items: center;
-  > button {
-    margin-left: 8px;
-  }
   margin: 0 16px;
   margin-bottom: 24px;
+
+  > button {
+    margin-right: 8px;
+  }
 `;
 
 const SelectedUsers = styled.div`
   display: flex;
-  margin-right: 24px;
+  color: ${({ theme }) => theme.textColor.primary};
+  font-family: ${({ theme }) => theme.fontFamilyBold};
+  margin-right: 32px;
 `;
 
 const ButtonText = styled.div`
-  margin-left: 8px;
+  margin: 0 6px 0 8px;
 `;
 
 const ListACtionsComponent = ({ selectedUsersCount }) => {
+  const selectedUsersText = `${selectedUsersCount} ${
+    selectedUsersCount === 1 ? "user" : "users"
+  } selected`;
+
   return (
     <ListActions>
-      <SelectedUsers>{selectedUsersCount} users selected</SelectedUsers>
+      <SelectedUsers>{selectedUsersText}</SelectedUsers>
       <Button>
         <EditIcon />
         <ButtonText>Edit</ButtonText>

@@ -1,10 +1,29 @@
 export const defaultTheme = {
-  fontColor: "purple",
   fontFamily: "SF Pro Text Regular",
   fontFamilyBold: "SF Pro Text Bold",
 
-  fontSize: "14px",
+  //font sizes colors
+  fontSize: {
+    small: "12px",
+    regular: "14px",
+    large: "18px"
+  },
 
   //colors
-  themeColor: "#475DE5"
+  themeColor: "#475DE5",
+  backgroundColor: "#ffffff",
+  selectedElementColor: "#f7fafc",
+
+  //text colors
+  textColor: {
+    primary: "#1A202C",
+    secondary: "#718096",
+    button: "#4A5568",
+    buttonDark: "#ffffff",
+    placeholder: "#A0AEC0"
+  },
+
+  //border
+  border: "1px solid #cbd5e0",
+  borderLight: "1px solid #E2E8F0"
 };

@@ -4,6 +4,8 @@ import { useVirtual } from "react-virtual";
 
 const List = ({ items, fetchMore, hasNextPage }) => {
   const listRef = React.useRef();
+  const [loadingRef, setLoadingRef] = useState();
+  const loader = React.useRef(fetchMore);
 
   const rowVirtualizer = useVirtual({
     size: items.length,
@@ -12,15 +14,11 @@ const List = ({ items, fetchMore, hasNextPage }) => {
     overscan: 10
   });
 
-  const [loadingRef, setLoadingRef] = useState();
-  const loader = React.useRef(fetchMore);
-
   const observer = React.useRef(
     new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
         if (entry.isIntersecting) {
-          // fetchNextPage();
           loader.current();
         }
       },
@@ -52,7 +50,6 @@ const List = ({ items, fetchMore, hasNextPage }) => {
 
   return (
     <ListComponent
-      // {...props}
       setLoadingRef={setLoadingRef}
       rowVirtualizer={rowVirtualizer}
       items={items}

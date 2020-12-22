@@ -4,14 +4,15 @@ import Loading from "../Loading/Loading";
 import styled from "styled-components";
 
 const List = styled.ul`
-  width: 100%;
-  position: relative;
-  height: 650px;
-  overflow-y: scroll;
-  margin: auto;
-
   box-sizing: border-box;
+  height: 620px;
+  overflow-y: scroll;
   padding: 0;
+  position: relative;
+  margin: auto;
+  width: 100%;
+
+  /* hide scrollbar */
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 

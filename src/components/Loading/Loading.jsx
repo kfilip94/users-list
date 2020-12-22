@@ -2,12 +2,12 @@ import React from "react";
 import styled from "styled-components";
 
 const Loading = styled.div`
-  color: #718096;
+  color: ${({ theme }) => theme.textColor.secondary};
   padding: 16px;
 `;
 
 const LoadingComponent = ({ loadingRef }) => {
-  return <Loading ref={loadingRef}>Loading more ...</Loading>;
+  return <Loading ref={loadingRef}>loading more ...</Loading>;
 };
 
 export default LoadingComponent;

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import CheckboxComponent from "../Checkbox/CheckboxComponent";
+import Checkbox from "../Checkbox/Checkbox";
 import Button from "../Button/Button";
 import { ReactComponent as ArrowIcon } from "../../assets/icons/arrow-down.svg";
 import { SORT_TYPE } from "../../utils";
@@ -11,12 +11,18 @@ const User = styled.div`
   flex: 3;
 `;
 
+const ColumnLabel = styled.div`
+  color: ${({ theme }) => theme.textColor.secondary};
+  font-family: ${({ theme }) => theme.fontFamilyBold};
+  font-size: ${({ theme }) => theme.fontSize.small};
+`;
+
 const SortOrderButton = styled(Button)`
   border: 0;
   box-shadow: none;
 `;
 
-const SortOrderIcon = styled(ArrowIcon)`
+const SortOrderIcon = styled.div`
   margin-left: 4px;
   transform: ${(props) =>
     props.sortOrder === SORT_TYPE.DESC ? "none" : `rotate(180deg)`};
@@ -44,16 +50,15 @@ const ListHeaderComponent = ({
   return (
     <ListHeader>
       <User>
-        <CheckboxComponent
-          checked={checked}
-          onChange={handleOnAllSelectedChange}
-        />
-        <span>User</span>
+        <Checkbox checked={checked} onChange={handleOnAllSelectedChange} />
+        <ColumnLabel>User</ColumnLabel>
       </User>
       <div>
         <SortOrderButton onClick={handleToggleSortOrder}>
-          <span>Permission</span>
-          <SortOrderIcon sortOrder={sortOrder} />
+          <ColumnLabel>Permission</ColumnLabel>
+          <SortOrderIcon sortOrder={sortOrder}>
+            <ArrowIcon />
+          </SortOrderIcon>
         </SortOrderButton>
       </div>
     </ListHeader>
