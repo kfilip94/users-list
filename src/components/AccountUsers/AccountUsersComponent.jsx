@@ -32,7 +32,6 @@ const ListContainer = styled.div`
 `;
 
 const AccountUsersComponent = () => {
-  const listRef = React.useRef();
   const [search, setSearch] = React.useState("");
   const [sortOrder, setSortOrder] = React.useState(SORT_TYPE.ASC);
 
@@ -76,7 +75,6 @@ const AccountUsersComponent = () => {
           handleToggleSortOrder={handleToggleSortOrder}
         />
         <List
-          parentRef={listRef}
           items={items}
           fetchMore={fetchNextPage}
           hasNextPage={hasNextPage}
