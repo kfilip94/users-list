@@ -4,7 +4,6 @@ import styled from "styled-components";
 import ListHeader from "./ListHeader";
 import Header from "./Header";
 import ListActions from "./ListActions";
-import { device } from "../../styles/breakpoints";
 
 import { ListSelectionContext } from "../../contexts/ListSelectionContextProvider";
 
@@ -18,10 +17,6 @@ const AccountUsers = styled.div`
   padding: 32px;
   max-width: 790px;
   margin: auto;
-
-  /* @media ${device.laptop} {
-    padding: 32px;
-  } */
 `;
 
 const ListContainer = styled.div`
