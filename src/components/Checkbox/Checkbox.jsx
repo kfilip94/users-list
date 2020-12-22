@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import { ReactComponent as CheckboxIcon } from "../../assets/icons/checkmark-icon.svg";
+import { ReactComponent as CheckboxIcon } from "../../assets/icons/checkmark.svg";
 
 const NativeCheckbox = styled.input.attrs({ type: "checkbox" })`
-  // Hide checkbox visually but remain accessible to screen readers.
+  // Hide checkbox from ui but keep it for screen reader
   border: 0;
-  /* clip: rect(0 0 0 0);
-  clippath: inset(50%); */
+  clip: rect(0 0 0 0);
+  clippath: inset(50%);
   height: 1px;
   margin: -1px;
   overflow: hidden;
@@ -17,7 +17,7 @@ const NativeCheckbox = styled.input.attrs({ type: "checkbox" })`
 `;
 
 const Checkbox = styled.div`
-  border: 1px solid #cbd5e0;
+  border: ${({ theme }) => theme.border};
   box-sizing: border-box;
   border-radius: 3px;
   display: flex;
@@ -27,18 +27,13 @@ const Checkbox = styled.div`
   height: 16px;
   background-color: ${({ checked, theme }) =>
     checked ? theme.themeColor : "white"};
-  /* border-radius: 4px; */
   margin-right: 14px;
   transition: all 150ms;
   cursor: pointer;
-  ${NativeCheckbox}:focus + & {
-    box-shadow: 0 0 0 3px pink;
-  }
 `;
 
 const CheckboxContainer = styled.label`
   cursor: pointer;
-  /* padding: 8px; */
 `;
 
 const CheckboxComponent = ({ checked, onChange }) => {

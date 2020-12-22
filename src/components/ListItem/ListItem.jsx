@@ -1,6 +1,7 @@
 import React, { useMemo, useContext } from "react";
-import Checkbox from "../Checkbox/Checkbox";
 import styled from "styled-components";
+
+import Checkbox from "../Checkbox/Checkbox";
 import { UserContext } from "../../contexts/UserContext";
 import PermissionLabel from "../PermissionLabel/PermissionLabel";
 import Button from "../Button/Button";
@@ -36,15 +37,16 @@ const ListItem = styled.div`
   box-sizing: border-box;
   border-left: 4px solid white;
   border-radius: 4px;
-  background-color: ${(props) => (props.checked ? "#f7fafc" : "white")};
+  background-color: ${({ checked, theme }) =>
+    checked ? theme.selectedElementColor : "transparent"};
   border-color: ${({ checked, theme }) =>
-    checked ? theme.themeColor : "white"};
+    checked ? theme.themeColor : "transparent"};
   display: flex;
   width: 100%;
   padding: 16px 24px 16px 12px;
   margin-bottom: 4px;
   align-items: center;
-  height: 64px;
+  height: ${({ height }) => `${height - 4}px`};
   cursor: pointer;
   &:hover ${ButtonsContainer} {
     visibility: visible;
@@ -81,13 +83,11 @@ const ListItemComponent = ({ item, size, start, parentRef }) => {
 
   return (
     <ListItemWrapper size={size} start={start}>
-      <ListItem checked={checked}>
+      <ListItem checked={checked} height={size}>
         <UserSection>
           <Checkbox
             checked={checked}
-            onChange={() => {
-              toggleSelection(item.id);
-            }}
+            onChange={() => toggleSelection(item.id)}
           />
           <UserInfoSection user={item} parentRef={parentRef} />
         </UserSection>

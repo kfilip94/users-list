@@ -1,14 +1,12 @@
-import React, { useState } from "react";
-import UserContextProvider from "./contexts/UserContext";
+import React from "react";
 import AccountUsersComponent from "./components/AccountUsers/AccountUsers";
 import { createGlobalStyle } from "styled-components";
 import GlobalFonts from "./fonts/GlobalFonts";
-import { ThemeProvider } from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 import { defaultTheme } from "./styles/themes.js";
 
 const GlobalStyle = createGlobalStyle`
   button, input {
-    /* border: none; */
     user-select: none;
     outline: none;
     cursor: pointer;
@@ -21,18 +19,23 @@ const GlobalStyle = createGlobalStyle`
 
   * {
     font-family: 'SF Pro Text Regular';
+    font-size: 14px;
   }
+`;
+
+const AppStyled = styled.div`
+  text-align: center;
+  margin: auto;
 `;
 
 export default function App() {
   return (
-    <div className="App">
+    <AppStyled>
       <GlobalFonts />
       <GlobalStyle />
-
       <ThemeProvider theme={defaultTheme}>
         <AccountUsersComponent />
       </ThemeProvider>
-    </div>
+    </AppStyled>
   );
 }

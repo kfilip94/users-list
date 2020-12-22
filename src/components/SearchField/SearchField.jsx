@@ -4,11 +4,12 @@ import { ReactComponent as SearchIcon } from "../../assets/icons/loupe.svg";
 import styled from "styled-components";
 
 const SearchField = styled.label`
-  margin: 0 12px;
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
+  align-items: center;
+  background: ${({ theme }) => theme.backgroundColor};
+  border: ${({ theme }) => theme.borderLight};
   box-sizing: border-box;
   border-radius: 4px;
+  margin: 0 12px;
   padding: 12px 12px 10px 12px;
   display: flex;
 
@@ -20,9 +21,24 @@ const SearchField = styled.label`
 const SearchInput = styled.input.attrs({ type: "text" })`
   border: none;
   box-sizing: border-box;
-  font-size: 14px;
   line-height: 21px;
   height: 100%;
+
+  &::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: ${({ theme }) => theme.textColor.placeholder};
+    opacity: 1; /* Firefox */
+  }
+
+  &:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: ${({ theme }) => theme.textColor.placeholder};
+  }
+
+  &::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: ${({ theme }) => theme.textColor.placeholder};
+  }
 `;
 
 const SearchFieldComponent = ({ placeholder, onChange }) => {
