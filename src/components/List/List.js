@@ -6,7 +6,6 @@ const List = (props) => {
   const { items, fetchMore, hasNextPage } = props;
   const listRef = React.useRef();
   const [loadingRef, setLoadingRef] = useState();
-  const loader = React.useRef(fetchMore);
 
   const rowVirtualizer = useVirtual({
     size: items.length,
@@ -15,39 +14,34 @@ const List = (props) => {
     overscan: 10
   });
 
-  const observer = React.useRef(
-    new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
-        if (entry.isIntersecting) {
-          loader.current();
-        }
-      },
-      {
-        root: listRef.current,
-        threshold: 1
-      }
-    )
-  );
-
   useEffect(() => {
-    const currentElement = loadingRef;
-    const currentObserver = observer.current;
+    let observer;
 
-    if (currentElement) {
-      currentObserver.observe(currentElement);
+    if (loadingRef) {
+      if (IntersectionObserver) {
+        const callback = (entries) => {
+          const entry = entries[0];
+          if (entry.isIntersecting) {
+            fetchMore();
+          }
+        };
+
+        const options = {
+          root: listRef.current,
+          threshold: 1
+        };
+
+        observer = new IntersectionObserver(callback, options);
+        observer.observe(loadingRef);
+      }
     }
 
     return () => {
-      if (currentElement) {
-        currentObserver.unobserve(currentElement);
+      if (loadingRef) {
+        observer.unobserve(loadingRef);
       }
     };
-  }, [loadingRef]);
-
-  useEffect(() => {
-    loader.current = fetchMore;
-  }, [fetchMore]);
+  }, [loadingRef, fetchMore]);
 
   return (
     <ListComponent
