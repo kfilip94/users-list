@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 export const useLazyImage = ({ imageURL, imageRef, parentRef }) => {
-  const [imageSrc, setImageSrc] = useState("#");
+  const [imageSrc, setImageSrc] = useState(null);
 
   useEffect(() => {
     let observer;

@@ -41,7 +41,10 @@ const UserInfoSection = ({ user, parentRef }) => {
 
   return (
     <>
-      <AvatarImg ref={setImageRef} src={imageSrc} />
+      <AvatarImg
+        ref={setImageRef}
+        src={imageSrc || require("../../assets/images/user.png")}
+      />
       <Info>
         <Name>{user.name}</Name>
         <Email>{user.email}</Email>
