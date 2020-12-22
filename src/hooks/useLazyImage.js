@@ -7,25 +7,25 @@ export const useLazyImage = ({ imageURL, imageRef, parentRef }) => {
     let observer;
     let didCancel = false;
 
-    const callback = (entries) => {
-      entries.forEach((entry) => {
-        if (
-          !didCancel &&
-          (entry.intersectionRatio > 0 || entry.isIntersecting)
-        ) {
-          setImageSrc(imageURL);
-          observer.unobserve(imageRef);
-        }
-      });
-    };
-    const options = {
-      root: parentRef.current,
-      threshold: 0.01,
-      rootMargin: "50%"
-    };
-
     if (imageRef && imageSrc !== imageURL) {
       if (IntersectionObserver) {
+        const callback = (entries) => {
+          entries.forEach((entry) => {
+            if (
+              !didCancel &&
+              (entry.intersectionRatio > 0 || entry.isIntersecting)
+            ) {
+              setImageSrc(imageURL);
+              observer.unobserve(imageRef);
+            }
+          });
+        };
+        const options = {
+          root: parentRef.current,
+          threshold: 0.01,
+          rootMargin: "50%"
+        };
+
         observer = new IntersectionObserver(callback, options);
         observer.observe(imageRef);
       } else {
@@ -35,7 +35,6 @@ export const useLazyImage = ({ imageURL, imageRef, parentRef }) => {
     }
     return () => {
       didCancel = true;
-      // on component cleanup, we remove the listner
       if (observer && observer.unobserve) {
         observer.unobserve(imageRef);
       }
