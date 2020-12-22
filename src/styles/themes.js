@@ -1,6 +1,7 @@
 export const defaultTheme = {
   fontFamily: "SF Pro Text Regular",
   fontFamilyBold: "SF Pro Text Bold",
+  fontWeightBold: 600,
 
   //font sizes colors
   fontSize: {

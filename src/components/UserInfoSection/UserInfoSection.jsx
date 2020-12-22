@@ -17,7 +17,7 @@ const Name = styled.div`
   font-size: ${({ theme }) => theme.fontSize};
   font-weight: 500;
   line-height: 21px;
-  font-family: ${({ theme }) => theme.fontFamilyBold};
+  font-weight: ${({ theme }) => theme.fontWeightBold};
 `;
 
 const Email = styled.div`

@@ -11,7 +11,7 @@ const Header = styled.div`
 
 const Title = styled.span`
   color: ${({ theme }) => theme.textColor.primary};
-  font-family: ${({ theme }) => theme.fontFamilyBold};
+  font-weight: ${({ theme }) => theme.fontWeightBold};
   font-size: ${({ theme }) => theme.fontSize.large};
   line-height: 27px;
   flex: 3;
@@ -24,7 +24,7 @@ const ConnectUsersButton = styled.button`
   border: 0;
   border-radius: 4px;
   color: ${({ theme }) => theme.textColor.buttonDark};
-  font-family: ${({ theme }) => theme.fontFamilyBold};
+  font-weight: ${({ theme }) => theme.fontWeightBold};
   font-size: ${({ theme }) => theme.fontSize};
   line-height: 21px;
 `;

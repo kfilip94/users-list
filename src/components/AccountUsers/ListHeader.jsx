@@ -13,7 +13,7 @@ const User = styled.div`
 
 const ColumnLabel = styled.div`
   color: ${({ theme }) => theme.textColor.secondary};
-  font-family: ${({ theme }) => theme.fontFamilyBold};
+  font-weight: ${({ theme }) => theme.fontWeightBold};
   font-size: ${({ theme }) => theme.fontSize.small};
 `;
 

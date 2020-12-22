@@ -19,7 +19,7 @@ const ListActions = styled.div`
 const SelectedUsers = styled.div`
   display: flex;
   color: ${({ theme }) => theme.textColor.primary};
-  font-family: ${({ theme }) => theme.fontFamilyBold};
+  font-weight: ${({ theme }) => theme.fontWeightBold};
   margin-right: 32px;
 `;
 

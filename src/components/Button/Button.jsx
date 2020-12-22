@@ -10,14 +10,14 @@ const Button = styled.button`
   display: flex;
   align-items: center;
   color: ${({ theme }) => theme.textColor.button};
-  font-family: ${({ theme }) => theme.fontFamilyBold};
+  font-weight: ${({ theme }) => theme.fontWeightBold};
   font-size: ${({ theme }) => theme.fontSize.regular};
   height: 32px;
   letter-spacing: 0em;
   text-align: left;
 
   & * {
-    font-family: ${({ theme }) => theme.fontFamilyBold};
+    font-weight: ${({ theme }) => theme.fontWeightBold};
   }
 `;
 
