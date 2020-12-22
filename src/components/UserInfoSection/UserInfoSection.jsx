@@ -13,7 +13,7 @@ const AvatarImg = styled.img`
 `;
 
 const Name = styled.div`
-  color: #1a202c;
+  color: ${({ theme }) => theme.textColor.primary};
   font-size: ${({ theme }) => theme.fontSize};
   font-weight: 500;
   line-height: 21px;
@@ -21,7 +21,7 @@ const Name = styled.div`
 `;
 
 const Email = styled.div`
-  color: #718096;
+  color: ${({ theme }) => theme.textColor.secondary};
   font-size: ${({ theme }) => theme.fontSize};
   line-height: 21px;
 `;

@@ -2,7 +2,7 @@ import React, { useMemo, useContext } from "react";
 import styled from "styled-components";
 
 import Checkbox from "../Checkbox/Checkbox";
-import { UserContext } from "../../contexts/UserContext";
+import { ListSelectionContext } from "../../contexts/ListSelectionContextProvider";
 import PermissionLabel from "../PermissionLabel/PermissionLabel";
 import Button from "../Button/Button";
 import { ReactComponent as EditIcon } from "../../assets/icons/pencil.svg";
@@ -67,19 +67,19 @@ const EditSection = styled.div`
 
 const EditText = styled.span`
   display: none;
+  margin: 0 4px 0 8px;
   @media ${device.laptop} {
     display: block;
   }
 `;
 
-const ListItemComponent = ({ item, size, start, parentRef }) => {
-  const { selectedUsers, toggleSelection } = useContext(UserContext);
+const DeleteButton = styled(Button)`
+  width: 32px;
+`;
 
-  const checked = useMemo(() => {
-    return selectedUsers[item.id] !== undefined
-      ? selectedUsers[item.id]
-      : selectedUsers.ALL_SELECTED;
-  }, [item.id, selectedUsers]);
+const ListItemComponent = ({ item, size, start, parentRef }) => {
+  const { isChecked, toggleItemSelection } = useContext(ListSelectionContext);
+  const checked = useMemo(() => isChecked([item.id]), [item.id, isChecked]);
 
   return (
     <ListItemWrapper size={size} start={start}>
@@ -87,7 +87,7 @@ const ListItemComponent = ({ item, size, start, parentRef }) => {
         <UserSection>
           <Checkbox
             checked={checked}
-            onChange={() => toggleSelection(item.id)}
+            onChange={() => toggleItemSelection(item.id)}
           />
           <UserInfoSection user={item} parentRef={parentRef} />
         </UserSection>
@@ -98,9 +98,9 @@ const ListItemComponent = ({ item, size, start, parentRef }) => {
               <EditIcon />
               <EditText>Edit</EditText>
             </Button>
-            <Button>
+            <DeleteButton>
               <DeleteIcon />
-            </Button>
+            </DeleteButton>
           </ButtonsContainer>
         </EditSection>
       </ListItem>

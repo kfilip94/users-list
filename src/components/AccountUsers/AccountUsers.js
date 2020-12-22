@@ -2,17 +2,17 @@ import React from "react";
 import AccountUsersComponent from "./AccountUsersComponent";
 import { QueryClient, QueryClientProvider } from "react-query";
 // import { ReactQueryDevtools } from "react-query/devtools";
-import UserContextProvider from "../../contexts/UserContext";
+import ListSelectionContextProvider from "../../contexts/ListSelectionContextProvider";
 
 const queryClient = new QueryClient();
 
 const AccountUsers = (props) => {
   return (
     <QueryClientProvider client={queryClient}>
-      <UserContextProvider>
+      <ListSelectionContextProvider>
         <AccountUsersComponent {...props} />
         {/* <ReactQueryDevtools initialIsOpen={false} /> */}
-      </UserContextProvider>
+      </ListSelectionContextProvider>
     </QueryClientProvider>
   );
 };

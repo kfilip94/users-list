@@ -8,6 +8,7 @@ const List = styled.ul`
   height: 620px;
   overflow-y: scroll;
   padding: 0;
+  height: 600px;
   position: relative;
   margin: auto;
   width: 100%;
@@ -21,12 +22,18 @@ const List = styled.ul`
   }
 `;
 
+const Message = styled.div`
+  padding: 64px 0;
+  color: ${({ theme }) => theme.textColor.secondary};
+`;
+
 const ListComponent = ({
   items,
   rowVirtualizer,
   parentRef,
   setLoadingRef,
-  hasNextPage
+  hasNextPage,
+  status
 }) => {
   return (
     <List ref={parentRef}>
@@ -44,6 +51,12 @@ const ListComponent = ({
         );
       })}
       {hasNextPage && <Loading loadingRef={setLoadingRef}></Loading>}
+      {!hasNextPage && status === "loading" && (
+        <Message>Loading users...</Message>
+      )}
+      {status === "success" && items.length === 0 && (
+        <Message>No results</Message>
+      )}
     </List>
   );
 };

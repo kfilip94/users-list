@@ -6,7 +6,7 @@ import Header from "./Header";
 import ListActions from "./ListActions";
 import { device } from "../../styles/breakpoints";
 
-import { UserContext } from "../../contexts/UserContext";
+import { ListSelectionContext } from "../../contexts/ListSelectionContextProvider";
 
 import { SORT_TYPE } from "../../utils";
 import useUsers from "../../hooks/useUsers";
@@ -15,9 +15,8 @@ const AccountUsers = styled.div`
   background-color: #edf2f7;
   display: flex;
   flex-direction: column;
-  padding: 32px 8px;
+  padding: 32px;
   max-width: 790px;
-  height: 720px;
   margin: auto;
 
   /* @media ${device.laptop} {
@@ -33,10 +32,11 @@ const ListContainer = styled.div`
 `;
 
 const AccountUsersComponent = () => {
+  const listRef = React.useRef();
   const [search, setSearch] = React.useState("");
   const [sortOrder, setSortOrder] = React.useState(SORT_TYPE.ASC);
 
-  const { data, fetchNextPage, hasNextPage } = useUsers({
+  const { status, data, fetchNextPage, hasNextPage } = useUsers({
     search,
     sortByPermission: sortOrder
   });
@@ -46,10 +46,11 @@ const AccountUsersComponent = () => {
     [data]
   );
 
-  const listRef = React.useRef();
-  const { selectedUsers, selectedUsersCount, toggleSelection } = useContext(
-    UserContext
-  );
+  const {
+    selectedItems,
+    getSelectedItemsCount,
+    toggleItemSelection
+  } = useContext(ListSelectionContext);
 
   const handleToggleSortOrder = () => {
     if (sortOrder === SORT_TYPE.ASC) {
@@ -59,16 +60,6 @@ const AccountUsersComponent = () => {
     }
   };
 
-  const usersCount = useMemo(() => {
-    if (!selectedUsers.ALL_SELECTED) {
-      return selectedUsersCount;
-    }
-    const deselectedUsers = Object.keys(selectedUsers).filter(
-      (key) => !selectedUsers[key] && key !== "ALL_SELECTED"
-    ).length;
-    return items.length >= deselectedUsers ? items.length - deselectedUsers : 0;
-  }, [selectedUsers, items, selectedUsersCount]);
-
   return (
     <AccountUsers>
       <Header
@@ -77,10 +68,10 @@ const AccountUsersComponent = () => {
         handleOnSearchChange={(value) => setSearch(value)}
       />
       <ListContainer>
-        <ListActions selectedUsersCount={usersCount} />
+        <ListActions selectedUsersCount={getSelectedItemsCount(items)} />
         <ListHeader
-          checked={selectedUsers.ALL_SELECTED}
-          handleOnAllSelectedChange={() => toggleSelection("ALL_SELECTED")}
+          checked={selectedItems.ALL_SELECTED}
+          handleOnAllSelectedChange={() => toggleItemSelection("ALL_SELECTED")}
           sortOrder={sortOrder}
           handleToggleSortOrder={handleToggleSortOrder}
         />
@@ -89,6 +80,7 @@ const AccountUsersComponent = () => {
           items={items}
           fetchMore={fetchNextPage}
           hasNextPage={hasNextPage}
+          status={status}
         />
       </ListContainer>
     </AccountUsers>

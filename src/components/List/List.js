@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import ListComponent from "./ListComponent";
 import { useVirtual } from "react-virtual";
 
-const List = ({ items, fetchMore, hasNextPage }) => {
+const List = (props) => {
+  const { items, fetchMore, hasNextPage } = props;
   const listRef = React.useRef();
   const [loadingRef, setLoadingRef] = useState();
   const loader = React.useRef(fetchMore);
@@ -50,6 +51,7 @@ const List = ({ items, fetchMore, hasNextPage }) => {
 
   return (
     <ListComponent
+      {...props}
       setLoadingRef={setLoadingRef}
       rowVirtualizer={rowVirtualizer}
       items={items}
