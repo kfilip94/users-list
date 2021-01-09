@@ -4,9 +4,9 @@ import { fakeFetchUsers } from "../api/fakeApi";
 const useUsers = (queryParams) => {
   return useInfiniteQuery(
     ["users", queryParams],
-    async (params) => {
+    (params) => {
       const { pageParam = 0 } = params;
-      const response = await fakeFetchUsers({
+      const response = fakeFetchUsers({
         page: pageParam,
         ...queryParams
       });

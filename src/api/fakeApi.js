@@ -76,15 +76,12 @@ export const fakeFetchUsers = ({
       const _users = getUsersByPage(sortedUsers, page);
       const nextPage =
         Math.ceil(sortedUsers.length / 100) - 1 > page ? page + 1 : null;
-      // console.log("FAKE_API: ", {
-      //   query: {
-      //     page,
-      //     search,
-      //     sortByPermission
-      //   },
-      //   response: { users: _users, nextPage }
-      // });
-      resolve({ users: _users, nextPage });
+
+      if (Math.random() < 0.95) {
+        resolve({ users: _users, nextPage });
+      } else {
+        reject({ users: null, message: "Response Error" });
+      }
     }, 300);
   });
 };

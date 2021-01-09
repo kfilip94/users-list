@@ -3,7 +3,7 @@ import ListComponent from "./ListComponent";
 import { useVirtual } from "react-virtual";
 
 const List = (props) => {
-  const { items, fetchMore, hasNextPage } = props;
+  const { items, fetchMore } = props;
   const listRef = React.useRef();
   const [loadingRef, setLoadingRef] = useState();
 
@@ -48,9 +48,7 @@ const List = (props) => {
       {...props}
       setLoadingRef={setLoadingRef}
       rowVirtualizer={rowVirtualizer}
-      items={items}
       parentRef={listRef}
-      hasNextPage={hasNextPage}
     />
   );
 };

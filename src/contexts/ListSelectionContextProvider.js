@@ -1,4 +1,4 @@
-import React, { createContext, useState, useCallback } from "react";
+import React, { createContext, useState } from "react";
 
 export const ListSelectionContext = createContext();
 
@@ -22,29 +22,21 @@ const ListSelectionContextProvider = ({ children }) => {
     }
   };
 
-  const getSelectedItemsCount = useCallback(
-    (items) => {
-      if (!selectedItems.ALL_SELECTED) {
-        return Object.values(selectedItems).filter((value) => !!value).length;
-      }
-      const deselectedUsers = Object.keys(selectedItems).filter(
-        (key) => !selectedItems[key] && key !== "ALL_SELECTED"
-      ).length;
-      return items.length >= deselectedUsers
-        ? items.length - deselectedUsers
-        : 0;
-    },
-    [selectedItems]
-  );
+  const getSelectedItemsCount = (items) => {
+    if (!selectedItems.ALL_SELECTED) {
+      return Object.values(selectedItems).filter((value) => !!value).length;
+    }
+    const deselectedUsers = Object.keys(selectedItems).filter(
+      (key) => !selectedItems[key] && key !== "ALL_SELECTED"
+    ).length;
+    return items.length >= deselectedUsers ? items.length - deselectedUsers : 0;
+  };
 
-  const isChecked = useCallback(
-    (itemId) => {
-      return selectedItems[itemId] !== undefined
-        ? selectedItems[itemId]
-        : selectedItems.ALL_SELECTED;
-    },
-    [selectedItems]
-  );
+  const isChecked = (itemId) => {
+    return selectedItems[itemId] !== undefined
+      ? selectedItems[itemId]
+      : selectedItems.ALL_SELECTED;
+  };
 
   return (
     <ListSelectionContext.Provider

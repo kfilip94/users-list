@@ -51,11 +51,12 @@ const ListComponent = ({
         );
       })}
       {hasNextPage && <Loading loadingRef={setLoadingRef}></Loading>}
-      {!hasNextPage && status === "loading" && (
-        <Message>Loading users...</Message>
-      )}
+      {status === "loading" && <Message>Loading users...</Message>}
       {status === "success" && items.length === 0 && (
         <Message>No results</Message>
+      )}
+      {status === "error" && (
+        <Message>Opss... Something went wrong, try again later :(</Message>
       )}
     </List>
   );
